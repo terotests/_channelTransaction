@@ -19,6 +19,22 @@ var transaction = _channelTransaction("channel/id");
 
 ```
 
+# Format of transaction 
+
+```javascript
+{
+    id   : "transaction ID",        // unique ID for transaction
+    version : 1,                    // channel version
+    from : 10,                      // journal line to start the change
+    to   : 20,                      // the last line ( optionsl, I guess )
+    fail_all : false,               // fail all commands if failure
+    fail_tolastok : true,           // fail until last ok command
+    commands : [
+                                    // list of channel commands to run
+    ]
+}
+```
+
 
 
 
