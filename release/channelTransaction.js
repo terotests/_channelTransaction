@@ -70,11 +70,74 @@
         /**
          * @param Object changeFrame
          */
-        _myTrait_.execute = function (changeFrame) {};
+        _myTrait_.execute = function (changeFrame) {
+          /*
+          {
+          id   : "transaction ID", 
+          version : 1,
+          from : 10,
+          to   : 20,
+          fail_all : false,
+          fail_tolastok : true,
+          commands : [
+          ]
+          }
+          */
+
+          // The result of the transaction
+          var res = {
+            id: changeFrame.id,
+            from: changeFrame.from,
+            result: false,
+            rollBack: false,
+            failed: []
+          };
+
+          if (!changeFrame.id) return res;
+
+          try {
+
+            var line = this._channel.getJournalLine();
+            if (changeFrame.from != line) {
+              res.invalidStart = true;
+            }
+
+            var okCnt = 0,
+                failCnt = 0;
+            // the list of commands
+            for (var i = 0; i < changeFrame.commands.length; i++) {
+              var c = changeFrame.commands[i];
+              if (this._channel.execCmd(c)) {
+                // the command was OK
+                okCnt++;
+              } else {
+                // if command fails, ask the client to roll back
+                if (changeFrame.fail_tolastok) {
+                  res.rollBack = true;
+                  res.rollBackTo = okCnt + res.from;
+                } else {
+                  res.rollBack = true;
+                  res.rollBackTo = res.from;
+                }
+                return res;
+              }
+            }
+            if (res.failed.length == 0) res.result = true;
+          } catch (e) {
+            res.result = false;
+            return res;
+          }
+        };
 
         if (_myTrait_.__traitInit && !_myTrait_.hasOwnProperty('__traitInit')) _myTrait_.__traitInit = _myTrait_.__traitInit.slice();
         if (!_myTrait_.__traitInit) _myTrait_.__traitInit = [];
-        _myTrait_.__traitInit.push(function (t) {});
+        _myTrait_.__traitInit.push(function (channelId, channelData) {
+
+          this._channelId = channelId;
+          this._channel = channelData;
+
+          this._done = {};
+        });
       })(this);
     };
 
@@ -165,13 +228,3 @@
     define(__amdDefs__);
   }
 }).call(new Function('return this')());
-
-/*
-{
-id   : "transaction ID", 
-from : 10,
-to   : 20,
-commands : [
-]
-}
-*/
