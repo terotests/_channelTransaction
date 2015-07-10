@@ -1,5 +1,5 @@
 
-# channelFrame - channel data transactions
+# _channelTransaction
 
 The transaction manager has following responsibilities:
 
