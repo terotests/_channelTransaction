@@ -93,6 +93,10 @@
 
           if (!changeFrame.id) return res;
 
+          if (this._done[changeFrame.id]) return res;
+
+          this._done[changeFrame.id] = true;
+
           try {
 
             var line = this._channel.getJournalLine();
