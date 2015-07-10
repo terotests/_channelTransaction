@@ -14,10 +14,11 @@ The transaction manager has following responsibilities:
 To create transaction manager, the channel ID must be provided. 
 
 ```javascript
-
-var transaction = _channelTransaction("channel/id");
-
+var transaction = _channelTransaction("channel/id", channelDataObject);
 ```
+
+The channelDataObject is instance of [_channelData](https://github.com/terotests/_channelObjects)
+
 
 # Format of transaction 
 
