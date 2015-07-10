@@ -55,7 +55,7 @@ The `fail_tolastok` is "go until failure" -mode where commands are processed unt
 
 The success object has
 
-1. `result` is se to `false`
+1. `result` is se to `true`
 2. `rollBack` can be true / false
 3. `rollBackTo` indicates the journal line the client should rollback to
 
