@@ -69,19 +69,6 @@
          * @param Object changeFrame
          */
         _myTrait_.execute = function (changeFrame) {
-          /*
-          {
-          id   : "transaction ID", 
-          version : 1,
-          from : 10,
-          to   : 20,
-          fail_all : false,
-          fail_tolastok : true,
-          commands : [
-          ]
-          }
-          */
-
           // The result of the transaction
           var res = {
             id: changeFrame.id,

@@ -203,19 +203,6 @@ _instanceCache[id] = this;
 
 
 ```javascript
-/*
-{
-    id   : "transaction ID", 
-    version : 1,
-    from : 10,
-    to   : 20,
-    fail_all : false,
-    fail_tolastok : true,
-    commands : [
-    ]
-}
-*/
-
 // The result of the transaction
 var res = {
     id : changeFrame.id,
