@@ -58,7 +58,7 @@
         // Initialize static variables here...
 
         if (!_myTrait_.hasOwnProperty('__factoryClass')) _myTrait_.__factoryClass = [];
-        _myTrait_.__factoryClass.push(function (t) {
+        _myTrait_.__factoryClass.push(function (id) {
 
           if (!_instanceCache) _instanceCache = {};
 
@@ -118,11 +118,14 @@
                 } else {
                   res.rollBack = true;
                   res.rollBackTo = res.from;
+                  console.log('Should UNDO ', okCnt);
+                  this._channel.undo(okCnt); // UNDO all the commands
                 }
                 return res;
               }
             }
             if (res.failed.length == 0) res.result = true;
+            return res;
           } catch (e) {
             res.result = false;
             return res;

@@ -35,6 +35,44 @@ var transaction = _channelTransaction("channel/id");
 }
 ```
 
+# Return values from transaction
+
+## Success
+
+The success object has
+
+1. `result` is se to `false`
+2. `rollBack` can be true / false
+3. `rollBackTo` indicates the journal line the client should rollback to
+
+
+```javascript
+{ "id":"transaction ID",
+  "from":0,
+  "result":true,        // <-- indicates the transaction was OK.
+  "rollBack":false   
+}
+```
+
+## Failure
+
+The failure object has
+
+1. `result` is se to `false`
+2. `rollBack` can be true / false
+3. `rollBackTo` indicates the journal line the client should rollback to
+
+
+```javascript
+{   "id":"transaction ID",
+    "from":3,
+    "result":false,
+    "rollBack":true,
+    "failed":[],
+    "rollBackTo":3          // <- line the client should roll back to
+}
+```
+
 
 
 
@@ -136,7 +174,7 @@ The class has following internal singleton variables:
 * _instanceCache
         
         
-### <a name="_channelTransaction__classFactory"></a>_channelTransaction::_classFactory(t)
+### <a name="_channelTransaction__classFactory"></a>_channelTransaction::_classFactory(id)
 
 
 ```javascript
@@ -198,12 +236,14 @@ try {
             } else {            
                 res.rollBack   = true;
                 res.rollBackTo =  res.from;
+                console.log("Should UNDO ", okCnt);
+                this._channel.undo( okCnt ); // UNDO all the commands
             }           
             return res;
         }
     }
     if( res.failed.length == 0 ) res.result = true;
-    
+    return res;
 } catch(e) {
     res.result = false;
     return res;
