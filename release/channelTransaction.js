@@ -118,7 +118,6 @@
                 } else {
                   res.rollBack = true;
                   res.rollBackTo = res.from;
-                  console.log('Should UNDO ', okCnt);
                   this._channel.undo(okCnt); // UNDO all the commands
                 }
                 return res;
