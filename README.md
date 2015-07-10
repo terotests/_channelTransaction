@@ -127,6 +127,7 @@ The failure object has
 
 - [_classFactory](README.md#_channelTransaction__classFactory)
 - [execute](README.md#_channelTransaction_execute)
+- [rollBack](README.md#_channelTransaction_rollBack)
 
 
 
@@ -278,6 +279,21 @@ this._done = {};
 
 ```
         
+### <a name="_channelTransaction_rollBack"></a>_channelTransaction::rollBack(channelData, res)
+`channelData` a _channelData -object to roll back
+ 
+`res` The response from transaction
+ 
+
+a convenience / example method to help clients to roll the response back
+```javascript
+if( channelData && res && res.rollBack ) {
+    // res.rollBackTo has the index to roll back to
+    channelData.reverseToLine( res.rollBackTo  );
+}
+
+```
+
 
 
    

@@ -142,6 +142,18 @@
 
           this._done = {};
         });
+
+        /**
+         * a convenience / example method to help clients to roll the response back
+         * @param Object channelData  - a _channelData -object to roll back
+         * @param Object res  - The response from transaction
+         */
+        _myTrait_.rollBack = function (channelData, res) {
+          if (channelData && res && res.rollBack) {
+            // res.rollBackTo has the index to roll back to
+            channelData.reverseToLine(res.rollBackTo);
+          }
+        };
       })(this);
     };
 
