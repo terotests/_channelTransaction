@@ -21,6 +21,16 @@ var transaction = _channelTransaction("channel/id");
 
 # Format of transaction 
 
+Transaction object has following properties
+
+1. `id` unique id UUID of the transaction
+2. `version` indicates the main file version (currently not used)
+3. `from` the line where the transaction starts, if lines are not matching, the transaction could still proceed, but for now it does not.
+3. `fail_all` if set to true, all commands must succeed in order to transaction to complete
+4. `fail_tolastok` if set to true, all successfull commands will be saved until first error
+5. `commands` is array of [Channel Object commands](https://github.com/terotests/_channelObjects)
+
+
 ```javascript
 {
     id   : "transaction ID",        // unique ID for transaction
