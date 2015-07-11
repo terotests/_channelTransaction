@@ -56,6 +56,7 @@ The `fail_tolastok` is "go until failure" -mode where commands are processed unt
 The success object has
 
 1. `result` is se to `true`
+2. `validCnt` number of valid commands in the request frame
 
 
 ```javascript
