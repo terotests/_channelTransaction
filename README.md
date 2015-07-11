@@ -73,10 +73,12 @@ The failure object has
 1. `result` is se to `false`
 2. `rollBack` can be true / false
 3. `rollBackTo` indicates the journal line the client should rollback to
+4. `validCnt` number of valid commands in the request frame
 
 
 ```javascript
 {   "id":"transaction ID",
+    "validCnt" : 2,         // number of valid commands
     "from":3,
     "result":false,
     "rollBack":true,
@@ -248,6 +250,7 @@ try {
         }
     }
     if( res.failed.length == 0 ) res.result = true;
+    res.validCnt = okCnt;
     return res;
 } catch(e) {
     res.result = false;

@@ -115,6 +115,7 @@
               }
             }
             if (res.failed.length == 0) res.result = true;
+            res.validCnt = okCnt;
             return res;
           } catch (e) {
             res.result = false;
