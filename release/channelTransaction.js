@@ -103,9 +103,11 @@
                 // if command fails, ask the client to roll back
                 if (changeFrame.fail_tolastok) {
                   res.rollBack = true;
+                  res.validCnt = okCnt;
                   res.rollBackTo = okCnt + res.from;
                 } else {
                   res.rollBack = true;
+                  res.validCnt = 0;
                   res.rollBackTo = res.from;
                   this._channel.undo(okCnt); // UNDO all the commands
                 }
