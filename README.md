@@ -226,6 +226,8 @@ try {
     var line = this._channel.getJournalLine();
     if(changeFrame.from != line) {
         res.invalidStart = true;
+        res.result = false;
+        return res;
     }
     
     var okCnt = 0, failCnt = 0;
