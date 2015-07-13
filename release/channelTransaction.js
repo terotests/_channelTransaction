@@ -90,8 +90,11 @@
             if (changeFrame.from != line) {
               res.invalidStart = true;
               res.result = false;
-              res.rollBack = true;
-              res.rollBackTo = changeFrame.from;
+              res.correctStart = changeFrame.from;
+              res.correctLines = [];
+              for (var i = changeFrame.from; i < line; i++) {
+                res.correctLines.push(this._channel._journal[i]);
+              }
               return res;
             }
 
