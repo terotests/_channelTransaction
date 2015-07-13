@@ -90,6 +90,8 @@
             if (changeFrame.from != line) {
               res.invalidStart = true;
               res.result = false;
+              res.rollBack = true;
+              res.rollBackTo = changeFrame.from;
               return res;
             }
 
