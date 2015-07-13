@@ -136,6 +136,14 @@
               }
             }
             if (res.failed.length == 0) res.result = true;
+
+            var line = this._channel.getJournalLine();
+            res.correctStart = changeFrame.from;
+            res.correctLines = [];
+            for (var i = changeFrame.from; i < line; i++) {
+              res.correctLines.push(this._channel._journal[i]);
+            }
+
             res.validCnt = okCnt;
             return res;
           } catch (e) {
