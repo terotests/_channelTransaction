@@ -109,14 +109,28 @@
               } else {
                 // if command fails, ask the client to roll back
                 if (changeFrame.fail_tolastok) {
-                  res.rollBack = true;
+                  //res.rollBack   = true;
                   res.validCnt = okCnt;
-                  res.rollBackTo = okCnt + res.from;
+                  //res.rollBackTo = okCnt + res.from;
+
+                  var line = this._channel.getJournalLine();
+                  res.correctStart = changeFrame.from;
+                  res.correctLines = [];
+                  for (var i = changeFrame.from; i < line; i++) {
+                    res.correctLines.push(this._channel._journal[i]);
+                  }
                 } else {
-                  res.rollBack = true;
+                  //res.rollBack   = true;
                   res.validCnt = 0;
-                  res.rollBackTo = res.from;
+                  //res.rollBackTo =  res.from;
                   this._channel.undo(okCnt); // UNDO all the commands
+
+                  var line = this._channel.getJournalLine();
+                  res.correctStart = changeFrame.from;
+                  res.correctLines = [];
+                  for (var i = changeFrame.from; i < line; i++) {
+                    res.correctLines.push(this._channel._journal[i]);
+                  }
                 }
                 return res;
               }
